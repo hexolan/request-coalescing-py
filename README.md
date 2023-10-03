@@ -6,7 +6,9 @@ This repository is a simple experiment revolved around implementing request coal
 
 ## How does it work?
 
-When a client makes a request for an item, as they're name in this demo, of a specific id, it adds a task to the coalescer queue and waits for the result of that task. Any subsequent requests for items of the same ID, in the meantime, will subscribe to the future result of that first pending task instead of performing their own read query.
+When a client makes a request for an item of a specific id, it adds a task to the coalescer queue and waits for the result of that task. 
+
+Any subsequent requests, recieved in the meantime, for items of the same ID will subscribe to the future result of that first pending task instead of performing their own read query.
 
 ![Coalescing Diagram](/docs/img-1.png)
 
