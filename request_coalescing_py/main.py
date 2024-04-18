@@ -11,6 +11,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startup_event():
+    """Prepare the API to take requests"""
     # initialise metrics
     app.state.DEFAULT_METRICS = {"requests": 0, "db_calls": 0}
     app.state.metrics = app.state.DEFAULT_METRICS.copy()
@@ -19,13 +20,14 @@ async def startup_event():
     app.state.repo = DatabaseRepo(app=app)
     await app.state.repo.start_db()
 
-    # initialise worker and coalescing repo
+    # initialise coalescing repo and spawn a worker task
     app.state.coalescer = CoalescingRepo(repo=app.state.repo)
     asyncio.create_task(app.state.coalescer.process_queue())
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
+    """Gracefully stop connections on shutdown"""
     # close DB connection
     await app.state.repo.stop_db()
 

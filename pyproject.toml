@@ -2,7 +2,7 @@
 name = "request-coalescing-py"
 version = "0.1.0"
 description = "A simple demonstration of request coalescing in asynchronous Python."
-authors = ["Declan <declan@hexolan.dev>"]
+authors = ["Declan Teevan <dt@hexolan.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
